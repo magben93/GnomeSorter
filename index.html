@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GnomeSorter</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+
+        .container {
+            margin: 100px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+        }
+
+        .data {
+            background-color: purple;
+            color: purple;
+            width: 10%;
+            margin: 0 2px;
+        }
+
+        .data.open {
+            background-color: orangered;
+            color: orangered;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            color: purple;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <H1>Gnome Sorter</H1>
+    </header>
+    <section class="container">
+        //<p class="data" id="0" style="padding: 1px 1px 0px 1px;">00</p>
+    </section>
+
+    <script>
+        let dataArray = [23, 52, 14, 31, 49, 78, 62, 95, 15, 25,]
+        dataArray = []
+        for (let i = 0; i < 50; i++) {
+            dataArray.push(Math.floor(Math.random() * 50))
+        }
+        loadArray(dataArray, 1)
+
+        let index = 0
+        sorTing = setInterval(() => {
+            if (index < dataArray.length && dataArray[index] < dataArray[index - 1]) {
+                [dataArray[index], dataArray[index - 1]] = [dataArray[index - 1], dataArray[index]];
+                index--;
+                loadArray(dataArray, index)
+                console.log(index)
+
+            }
+            else if (index > dataArray.length - 1) {
+                clearInterval(sorTing);
+                console.log(index)
+            }
+            else {
+                index++
+                loadArray(dataArray, index)
+                console.log(index)
+            }
+        }, 100);
+
+        function loadArray(arr, j) {
+            document.querySelector('.container').innerHTML = ''
+            for (let i = 0; i < arr.length; i++) {
+                document.querySelector('.container').innerHTML += '<div class="data" id="' + i + '" style="padding: 1px 1px ' + arr[i] * 5 + 'px 1px;">.</div>';
+            }
+            document.getElementById(j).classList.toggle('open')
+
+        }
+    </script>
+</body>
+
+</html>
